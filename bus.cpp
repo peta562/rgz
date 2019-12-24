@@ -57,7 +57,7 @@ void Clock::plusClock(int mn)
     else
         cout << "Error value" << endl;
 }
-void Clock::printTime(QTableWidget* table)
+void Clock::printTime(QTableWidget* table) //вывод времени в формате Date: dd, hh:mm
 {
     if(hour >= 10 && minute >= 10)
         table->setItem(table->rowCount() -1 , 5, new QTableWidgetItem(QStringLiteral("Date: %1, time: %2::%3").arg(getDay()).arg(getHour()).arg(getMinute())));
@@ -84,6 +84,7 @@ void Bus::setNum(int n)
 {
     number = n;
 }
+
 void Bus::setPassNum(int n)
 {
     passengersNum = n;
@@ -111,20 +112,20 @@ void Bus::printInfo()
     cout << "Count of passengers: " << passengersNum << endl;
     cout << "Number of laps: " << circle << endl;
 }
-void Bus::move(QTableWidget* table, int speed, int maxPasNum)
+    void Bus::move(QTableWidget* table,int speed, int maxPasNum)
 {
-    int accident = 0, pasNum;
+    int accident = 0, pasNum; //accident - переменная, отвечающая за вероятность поломки/аварии
     int j = 0;
-    int countAcc = 0;
+    int countAcc = 0; // кол-во поломок/аварий
     map <string, int> :: iterator it = mp.begin();
     srand(time(NULL));
-    while (j != circle)
+    while (j != circle) //пока не проедем заданное кол-во кругов
     {
-        while(it != mp.end())
+        while(it != mp.end()) // двигаемся в один конец маршрута
         {
             for(int i = 0; i < it->second; i += 20)
             {
-                accident = 1 + rand() % 100; // вероятность аварии или поломки
+                accident = 1 + rand() % 200; // вероятность аварии или поломки
                 if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
@@ -141,11 +142,11 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
             it++;
 
         }
-        while(it != mp.begin())
+        while(it != mp.begin()) // двигаемся в другой конец маршрута
         {
             for(int i = 0; i < it->second; i += 20)
             {
-                accident = 1 + rand() % 100; // вероятность аварии или поломки
+                accident = 1 + rand() % 200; // вероятность аварии или поломки
                 if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
@@ -162,6 +163,7 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
             it--;
         }
        j++;
+       //записываем значения в таблицу
        table->setItem(table->rowCount() -1 , 1, new QTableWidgetItem(QString::number(getNum())));
        table->setItem(table->rowCount() -1 , 3, new QTableWidgetItem(QString::number(getPassNum())));
        table->setItem(table->rowCount() -1 , 4, new QTableWidgetItem(QString::number(getCircle())));
@@ -189,7 +191,7 @@ void Paz::printInfo()
 void Paz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table, speed, maxPasNum);
+    Bus::move(table,speed, maxPasNum);
 }
 
 
@@ -202,6 +204,7 @@ Vaz::~Vaz()
 {
 
 }
+
 void Vaz::printInfo()
 {
     cout << "Model: Vaz" << endl;
@@ -211,7 +214,7 @@ void Vaz::printInfo()
 void Vaz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table, speed, maxPasNum);
+    Bus::move(table,speed, maxPasNum);
 }
 
 
@@ -235,5 +238,5 @@ void Gaz::printInfo()
 void Gaz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table, speed, maxPasNum);
+    Bus::move(table,speed, maxPasNum);
 }

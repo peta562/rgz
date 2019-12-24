@@ -39,9 +39,10 @@ protected:
     int number;
     int passengersNum;
     int circle;
+
 public:
-    Bus(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
-    ~Bus();
+    Bus(int num = 1,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
+    virtual ~Bus();
     void setNum(int n);
     void setPassNum(int n);
     void setCircle(int n);
@@ -49,30 +50,32 @@ public:
     int getPassNum();
     int getCircle();
     void printInfo();
-    virtual void move(QTableWidget* table, int speed = 1, int maxPasNum = 0);
+    void move(QTableWidget* table, int speed = 1, int maxPasNum = 0);
 };
 
 class Paz : public Bus
 {
 private:
-    int speed = 40;
+    int speed = 30;
     int maxPasNum = 25;
 public:
     Paz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Paz();
     void printInfo();
+    void setSpeed();
     void move(QTableWidget* table);
 };
 
 class Vaz : public Bus
 {
 private:
-    int speed = 50;
+    int speed = 20;
     int maxPasNum = 20;
 public:
     Vaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Vaz();
     void printInfo();
+    void setSpeed();
     void move(QTableWidget* table);
 };
 
@@ -85,6 +88,7 @@ public:
     Gaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Gaz();
     void printInfo();
+    void setSpeed();
     void move(QTableWidget* table);
 };
 
