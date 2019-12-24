@@ -115,6 +115,7 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
 {
     int accident = 0, pasNum;
     int j = 0;
+    int countAcc = 0;
     map <string, int> :: iterator it = mp.begin();
     srand(time(NULL));
     while (j != circle)
@@ -124,9 +125,10 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
             for(int i = 0; i < it->second; i += 20)
             {
                 accident = 1 + rand() % 100; // вероятность аварии или поломки
-                if(accident == 20 || accident == 40 || accident == 80)
+                if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
+                    countAcc++;
                 }
             }
             pasNum = -5 + rand() % 10; // кол-во пришедших/ушедших пассажиров в автобусе
@@ -144,9 +146,10 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
             for(int i = 0; i < it->second; i += 20)
             {
                 accident = 1 + rand() % 100; // вероятность аварии или поломки
-                if(accident == 20 || accident == 40 || accident == 80)
+                if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
+                    countAcc++;
                 }
             }
             pasNum = -5 + rand() % 10; // кол-во пришедших/ушедших пассажиров в автобусе
@@ -162,6 +165,7 @@ void Bus::move(QTableWidget* table, int speed, int maxPasNum)
        table->setItem(table->rowCount() -1 , 1, new QTableWidgetItem(QString::number(getNum())));
        table->setItem(table->rowCount() -1 , 3, new QTableWidgetItem(QString::number(getPassNum())));
        table->setItem(table->rowCount() -1 , 4, new QTableWidgetItem(QString::number(getCircle())));
+       table->setItem(table->rowCount() -1 , 6, new QTableWidgetItem(QString::number(countAcc)));
        Clock::printTime(table);
     }
 }

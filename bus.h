@@ -49,7 +49,7 @@ public:
     int getPassNum();
     int getCircle();
     void printInfo();
-    void move(QTableWidget* table, int speed = 1, int maxPasNum = 0);
+    virtual void move(QTableWidget* table, int speed = 1, int maxPasNum = 0);
 };
 
 class Paz : public Bus
