@@ -35,47 +35,53 @@ public:
 
 class Bus : public Clock
 {
+private:
+    int maxPasNum = 0;
+    int speed = 1;
 protected:
     int number;
     int passengersNum;
     int circle;
-
 public:
-    Bus(int num = 1,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
+    Bus(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     virtual ~Bus();
     void setNum(int n);
     void setPassNum(int n);
     void setCircle(int n);
     int getNum();
     int getPassNum();
+    virtual int getSpeed();
     int getCircle();
+    virtual int getMaxPassNum();
     void printInfo();
-    void move(QTableWidget* table, int speed = 1, int maxPasNum = 0);
+    void move(QTableWidget* table);
 };
 
 class Paz : public Bus
 {
 private:
-    int speed = 30;
+    int speed = 40;
     int maxPasNum = 25;
 public:
     Paz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
-    ~Paz();
+    ~Paz() override;
     void printInfo();
-    void setSpeed();
+    int getMaxPassNum() override;
+    int getSpeed() override;
     void move(QTableWidget* table);
 };
 
 class Vaz : public Bus
 {
 private:
-    int speed = 20;
+    int speed = 50;
     int maxPasNum = 20;
 public:
     Vaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
-    ~Vaz();
+    ~Vaz() override;
     void printInfo();
-    void setSpeed();
+    int getMaxPassNum() override;
+    int getSpeed() override;
     void move(QTableWidget* table);
 };
 
@@ -86,9 +92,10 @@ private:
     int maxPasNum = 35;
 public:
     Gaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
-    ~Gaz();
+    ~Gaz() override;
     void printInfo();
-    void setSpeed();
+    int getMaxPassNum() override;
+    int getSpeed() override;
     void move(QTableWidget* table);
 };
 

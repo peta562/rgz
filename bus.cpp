@@ -1,6 +1,6 @@
 #include "bus.h"
 
-map <string, int> mp = {{"Новосибирск" , 120}, {"Бердск", 180}, {"Искитим", 300}, {"Барнаул", 180}, {"Алтай", 240}};
+map <string, int> mp = {{"Новосибирск" , 1200}, {"Бердск", 1800}, {"Искитим", 3000}, {"Барнаул", 1800}, {"Алтай", 2400}};
 
 Clock::Clock(int d, int hr, int mn) : day{d}, hour{hr}, minute{mn}
 {
@@ -45,10 +45,10 @@ void Clock::plusClock(int mn)
             {
                 mn = mn - 60;
                 hour++;
-                if(hour >= 24)
+                while(hour >= 24)
                 {
                     day++;
-                    hour = 0;
+                    hour -= 24;
                 }
             }
             minute = mn;
@@ -84,7 +84,6 @@ void Bus::setNum(int n)
 {
     number = n;
 }
-
 void Bus::setPassNum(int n)
 {
     passengersNum = n;
@@ -97,6 +96,14 @@ void Bus::setCircle(int n)
 int Bus::getNum()
 {
     return number;
+}
+int Bus::getMaxPassNum()
+{
+    return maxPasNum;
+}
+int Bus::getSpeed()
+{
+    return speed;
 }
 int Bus::getPassNum()
 {
@@ -112,20 +119,20 @@ void Bus::printInfo()
     cout << "Count of passengers: " << passengersNum << endl;
     cout << "Number of laps: " << circle << endl;
 }
-    void Bus::move(QTableWidget* table,int speed, int maxPasNum)
+void Bus::move(QTableWidget* table)
 {
-    int accident = 0, pasNum; //accident - переменная, отвечающая за вероятность поломки/аварии
+    int accident = 0, pasNum;  //accident - переменная, отвечающая за вероятность поломки/аварии
     int j = 0;
-    int countAcc = 0; // кол-во поломок/аварий
+    int countAcc = 0;  // кол-во поломок/аварий
     map <string, int> :: iterator it = mp.begin();
     srand(time(NULL));
-    while (j != circle) //пока не проедем заданное кол-во кругов
+    while (j != circle)  //пока не проедем заданное кол-во кругов
     {
-        while(it != mp.end()) // двигаемся в один конец маршрута
+        while(it != mp.end())  // двигаемся в один конец маршрута
         {
-            for(int i = 0; i < it->second; i += 20)
+            for(int i = 0; i < it->second; i += 200)
             {
-                accident = 1 + rand() % 200; // вероятность аварии или поломки
+                accident = 1 + rand() % 100; // вероятность аварии или поломки
                 if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
@@ -134,19 +141,19 @@ void Bus::printInfo()
             }
             pasNum = -5 + rand() % 10; // кол-во пришедших/ушедших пассажиров в автобусе
             passengersNum += pasNum;
-            if(passengersNum >= maxPasNum)  // пассажиров не может быть больше, чем вмещает автобус
-                setPassNum(maxPasNum);
+            if(passengersNum >= getMaxPassNum())  // пассажиров не может быть больше, чем вмещает автобус
+                setPassNum(getMaxPassNum());
             if(passengersNum < 0)   // и меньше 0 тоже
                 setPassNum(0);
-            plusClock(it->second/speed);
+            plusClock(it->second/getSpeed());
             it++;
 
         }
-        while(it != mp.begin()) // двигаемся в другой конец маршрута
+        while(it != mp.begin())  // двигаемся в другой конец маршрута
         {
-            for(int i = 0; i < it->second; i += 20)
+            for(int i = 0; i < it->second; i += 200)
             {
-                accident = 1 + rand() % 200; // вероятность аварии или поломки
+                accident = 1 + rand() % 100; // вероятность аварии или поломки
                 if(accident == 20 || accident == 40)
                 {
                     plusClock(accident / 2); // время устраения аварии или поломки
@@ -155,21 +162,22 @@ void Bus::printInfo()
             }
             pasNum = -5 + rand() % 10; // кол-во пришедших/ушедших пассажиров в автобусе
             passengersNum += pasNum;
-            if(passengersNum >= maxPasNum) // пассажиров не может быть больше, чем вмещает автобус
-                setPassNum(maxPasNum);
+            if(passengersNum >= getMaxPassNum()) // пассажиров не может быть больше, чем вмещает автобус
+                setPassNum(getMaxPassNum());
             if(passengersNum < 0) // и меньше 0 тоже
                 setPassNum(0);
-            plusClock(it->second/speed);
+            plusClock(it->second/getSpeed());
             it--;
         }
+
        j++;
-       //записываем значения в таблицу
-       table->setItem(table->rowCount() -1 , 1, new QTableWidgetItem(QString::number(getNum())));
-       table->setItem(table->rowCount() -1 , 3, new QTableWidgetItem(QString::number(getPassNum())));
-       table->setItem(table->rowCount() -1 , 4, new QTableWidgetItem(QString::number(getCircle())));
-       table->setItem(table->rowCount() -1 , 6, new QTableWidgetItem(QString::number(countAcc)));
-       Clock::printTime(table);
     }
+    //записываем значения в таблицу
+    table->setItem(table->rowCount() -1 , 1, new QTableWidgetItem(QString::number(getNum())));
+    table->setItem(table->rowCount() -1 , 3, new QTableWidgetItem(QString::number(getPassNum())));
+    table->setItem(table->rowCount() -1 , 4, new QTableWidgetItem(QString::number(getCircle())));
+    table->setItem(table->rowCount() -1 , 6, new QTableWidgetItem(QString::number(countAcc)));
+    Clock::printTime(table);
 }
 
 
@@ -187,11 +195,18 @@ void Paz::printInfo()
     cout << "Model: Paz" << endl;
     Bus::printInfo();
 }
-
+int Paz::getMaxPassNum()
+{
+    return maxPasNum;
+}
+int Paz::getSpeed()
+{
+    return speed;
+}
 void Paz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table,speed, maxPasNum);
+    Bus::move(table);
 }
 
 
@@ -204,17 +219,23 @@ Vaz::~Vaz()
 {
 
 }
-
 void Vaz::printInfo()
 {
     cout << "Model: Vaz" << endl;
     Bus::printInfo();
 }
-
+int Vaz::getMaxPassNum()
+{
+    return maxPasNum;
+}
+int Vaz::getSpeed()
+{
+    return speed;
+}
 void Vaz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table,speed, maxPasNum);
+    Bus::move(table);
 }
 
 
@@ -234,9 +255,16 @@ void Gaz::printInfo()
     cout << "Model: Gaz" << endl;
     Bus::printInfo();
 }
-
+int Gaz::getMaxPassNum()
+{
+    return maxPasNum;
+}
+int Gaz::getSpeed()
+{
+    return speed;
+}
 void Gaz::move(QTableWidget* table)
 {
     table->setItem(table->rowCount() -1 , 2, new QTableWidgetItem(QString::number(getPassNum())));
-    Bus::move(table,speed, maxPasNum);
+    Bus::move(table);
 }

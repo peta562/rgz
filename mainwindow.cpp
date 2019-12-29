@@ -22,13 +22,13 @@ void MainWindow::generate()
     {
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
-        if(!notError || num < 0)
+        if(!notError || num <= 0)
         {//если нет ошибки преобразования строки в число
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
         int passNum = ui->lineEditPassNum->text().toInt(&notError);
-        if(!notError || passNum >= 25  || passNum < 0)
+        if(!notError || passNum >= 25  || passNum <= 0)
         {
             ui->lineEditPassNum->setText(QString("Invalid value!"));
             return;
@@ -67,13 +67,13 @@ void MainWindow::generate()
     {
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
-        if(!notError || num < 0)
+        if(!notError || num <= 0)
         {//если нет ошибки преобразования строки в число
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
         int passNum = ui->lineEditPassNum->text().toInt(&notError);
-        if(!notError || passNum >= 20  || passNum < 0)
+        if(!notError || passNum >= 20  || passNum <= 0)
         {
             ui->lineEditPassNum->setText(QString("Invalid value!"));
             return;
@@ -110,13 +110,13 @@ void MainWindow::generate()
     {
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
-        if(!notError || num < 0)
+        if(!notError || num <= 0)
         {//если нет ошибки преобразования строки в число
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
         int passNum = ui->lineEditPassNum->text().toInt(&notError);
-        if(!notError || passNum >= 35 || passNum < 0)
+        if(!notError || passNum >= 35 || passNum <= 0)
         {
             ui->lineEditPassNum->setText(QString("Invalid value!"));
             return;
