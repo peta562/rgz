@@ -28,16 +28,16 @@ public:
     int getDay();
     int getHour();
     int getMinute();
-    void plusClock(int mn);
-    void printTime(QTableWidget* table);
+    void plusClock(int mn); // прибавление времени после пройденной остановки или починки
+    void printTime(QTableWidget* table); // вывод времени
 };
 
 
 class Bus : public Clock
 {
 private:
-    int maxPasNum = 0;
-    int speed = 1;
+    int maxPasNum = 0; // максимальное кол-во пассажиров
+    int speed = 1; // скорость автобуса
 protected:
     int number;
     int passengersNum;
@@ -54,7 +54,7 @@ public:
     int getCircle();
     virtual int getMaxPassNum();
     void printInfo();
-    void move(QTableWidget* table);
+    void move(QTableWidget* table); // функция движения по маршруту, пока не закончится кол-во заданных кругов
 };
 
 class Paz : public Bus

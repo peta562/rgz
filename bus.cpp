@@ -1,5 +1,6 @@
 #include "bus.h"
 
+// маршрут
 map <string, int> mp = {{"Новосибирск" , 1200}, {"Бердск", 1800}, {"Искитим", 3000}, {"Барнаул", 1800}, {"Алтай", 2400}};
 
 Clock::Clock(int d, int hr, int mn) : day{d}, hour{hr}, minute{mn}

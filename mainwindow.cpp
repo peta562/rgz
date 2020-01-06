@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
-void MainWindow::generate()
+void MainWindow::generate() // запускаем автобус
 {
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QString s = ui->comboBox->currentText();

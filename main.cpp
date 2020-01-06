@@ -1,3 +1,5 @@
+// Программа моделирует движения 3-ех моделей автобусов по маршруту
+
 #include "mainwindow.h"
 #include "bus.h"
 #include <QApplication>
