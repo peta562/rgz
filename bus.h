@@ -39,7 +39,7 @@ protected:
     int number;
     int passengersNum;
     int circle;
-    int maxPasNum; // максимальное кол-во пассажиров
+    int maxPassNum; // максимальное кол-во пассажиров
     int speed; // скорость автобуса
 public:
     Bus(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
@@ -54,7 +54,6 @@ public:
     int getCircle();
     virtual void setMaxPassNum() = 0;
     int getMaxPassNum();
-    void printInfo();
     void move(QTableWidget* table); // функция движения по маршруту, пока не закончится кол-во заданных кругов
 };
 
@@ -63,7 +62,6 @@ class Paz : public Bus
 public:
     Paz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Paz() override;
-    void printInfo();
     void setMaxPassNum() override;
     void setSpeed() override;
     void move(QTableWidget* table);
@@ -74,7 +72,6 @@ class Vaz : public Bus
 public:
     Vaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Vaz() override;
-    void printInfo();
     void setMaxPassNum() override;
     void setSpeed() override;
     void move(QTableWidget* table);
@@ -85,7 +82,6 @@ class Gaz : public Bus
 public:
     Gaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Gaz() override;
-    void printInfo();
     void setMaxPassNum() override;
     void setSpeed() override;
     void move(QTableWidget* table);

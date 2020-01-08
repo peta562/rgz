@@ -101,7 +101,7 @@ int Bus::getNum()
 }
 int Bus::getMaxPassNum()
 {
-    return maxPasNum;
+    return maxPassNum;
 }
 int Bus::getSpeed()
 {
@@ -115,12 +115,6 @@ int Bus::getCircle()
 {
     return circle;
 }
-void Bus::printInfo()
-{
-    cout << "Bus number: " << number << endl;
-    cout << "Count of passengers: " << passengersNum << endl;
-    cout << "Number of laps: " << circle << endl;
-}
 void Bus::move(QTableWidget* table)
 {
     int accident = 0, pasNum;  //accident - переменная, отвечающая за вероятность поломки/аварии
@@ -128,7 +122,7 @@ void Bus::move(QTableWidget* table)
     int countAcc = 0;  // кол-во поломок/аварий
     map <string, int> :: iterator it = mp.begin();
     srand(time(NULL));
-    while (j != circle)  //пока не проедем заданное кол-во кругов
+    while (j != getCircle())  //пока не проедем заданное кол-во кругов
     {
         while(it != mp.end())  // двигаемся в один конец маршрута
         {
@@ -194,14 +188,9 @@ Paz::~Paz()
 {
 
 }
-void Paz::printInfo()
-{
-    cout << "Model: Paz" << endl;
-    Bus::printInfo();
-}
 void Paz::setMaxPassNum()
 {
-    maxPasNum = 25;
+    maxPassNum = 25;
 }
 void Paz::setSpeed()
 {
@@ -225,14 +214,9 @@ Vaz::~Vaz()
 {
 
 }
-void Vaz::printInfo()
-{
-    cout << "Model: Vaz" << endl;
-    Bus::printInfo();
-}
 void Vaz::setMaxPassNum()
 {
-    maxPasNum = 20;
+    maxPassNum = 20;
 }
 void Vaz::setSpeed()
 {
@@ -258,14 +242,9 @@ Gaz::~Gaz()
 {
 
 }
-void Gaz::printInfo()
-{
-    cout << "Model: Gaz" << endl;
-    Bus::printInfo();
-}
 void Gaz::setMaxPassNum()
 {
-    maxPasNum = 30;
+    maxPassNum = 30;
 }
 void Gaz::setSpeed()
 {

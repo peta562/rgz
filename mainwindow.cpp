@@ -23,7 +23,7 @@ void MainWindow::generate() // запускаем автобус
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
         if(!notError || num <= 0)
-        {//если нет ошибки преобразования строки в число
+        {
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
@@ -68,7 +68,7 @@ void MainWindow::generate() // запускаем автобус
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
         if(!notError || num <= 0)
-        {//если нет ошибки преобразования строки в число
+        {
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
@@ -111,7 +111,7 @@ void MainWindow::generate() // запускаем автобус
         bool notError = true;
         int num = ui->lineEditNum->text().toInt(&notError);
         if(!notError || num <= 0)
-        {//если нет ошибки преобразования строки в число
+        {
             ui->lineEditNum->setText(QString("Invalid value!"));
             return;
         }
@@ -148,7 +148,6 @@ void MainWindow::generate() // запускаем автобус
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1 , 0, new QTableWidgetItem(QString("GAZ")));
         Gaz(num, passNum, circle, day, hr, mn).move(ui->tableWidget);
-
     }
 }
 
