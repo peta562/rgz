@@ -1,9 +1,9 @@
 #include "bus.h"
 
 // маршрут
-map <string, int> mp = {{"Новосибирск" , 1200}, {"Бердск", 1800}, {"Искитим", 3000}, {"Барнаул", 1800}, {"Алтай", 2400}};
+map <string, int> mp = {{"Новосибирск" , 20}, {"Бердск", 35}, {"Искитим", 25}, {"Барнаул", 180}, {"Алтай", 455}};
 
-Clock::Clock(int d, int hr, int mn) : day{d}, hour{hr}, minute{mn}
+Clock::Clock(int d, int hr, int mn) :  hour{hr}, minute{mn}, day{d}
 {
 }
 Clock::~Clock()
@@ -33,6 +33,7 @@ int Clock::getMinute()
 {
     return minute;
 }
+
 void Clock::plusClock(int mn)
 {
     mn += minute;
@@ -73,7 +74,7 @@ void Clock::printTime(QTableWidget* table) //вывод времени в фор
 
 
 
-Bus::Bus(int num,int pasNum, int circ, int d, int hr, int mn) : number{num}, passengersNum{pasNum}, circle{circ}, Clock{d, hr, mn}
+Bus::Bus(int num,int pasNum, int circ, int d, int hr, int mn) :  Clock{d, hr, mn}, number{num}, passengersNum{pasNum}, circle{circ}
 {
 
 }
@@ -131,12 +132,12 @@ void Bus::move(QTableWidget* table)
     {
         while(it != mp.end())  // двигаемся в один конец маршрута
         {
-            for(int i = 0; i < it->second; i += 200)
+            for(int i = 0; i < it->second; i += 5)
             {
-                accident = 1 + rand() % 100; // вероятность аварии или поломки
+                accident = 1 + rand() % 1000; // вероятность аварии или поломки на каждые 5 км
                 if(accident == 20 || accident == 40)
                 {
-                    plusClock(accident / 2); // время устраения аварии или поломки
+                    plusClock(accident / 2); // время устраения аварии или поломки в минутах
                     countAcc++;
                 }
             }
@@ -146,18 +147,18 @@ void Bus::move(QTableWidget* table)
                 setPassNum(getMaxPassNum());
             if(passengersNum < 0)   // и меньше 0 тоже
                 setPassNum(0);
-            plusClock(it->second/getSpeed());
+            plusClock(it->second/getSpeed() * 60); // прибавляем время в часах
             it++;
 
         }
         while(it != mp.begin())  // двигаемся в другой конец маршрута
         {
-            for(int i = 0; i < it->second; i += 200)
+            for(int i = 0; i < it->second; i += 5)
             {
-                accident = 1 + rand() % 100; // вероятность аварии или поломки
+                accident = 1 + rand() % 1000; // вероятность аварии или поломки на каждые 5 км
                 if(accident == 20 || accident == 40)
                 {
-                    plusClock(accident / 2); // время устраения аварии или поломки
+                    plusClock(accident / 2); // время устраения аварии или поломки в минутах
                     countAcc++;
                 }
             }
@@ -167,7 +168,7 @@ void Bus::move(QTableWidget* table)
                 setPassNum(getMaxPassNum());
             if(passengersNum < 0) // и меньше 0 тоже
                 setPassNum(0);
-            plusClock(it->second/getSpeed());
+            plusClock(it->second/getSpeed() * 60); // прибавляем время в часах
             it--;
         }
 
@@ -184,8 +185,10 @@ void Bus::move(QTableWidget* table)
 
 Paz::Paz(int num, int pasNum, int circ, int d, int hr, int mn):Bus(num, pasNum, circ, d, hr, mn)
 {
-    if(pasNum > maxPasNum)
-        pasNum = maxPasNum;
+    setMaxPassNum();
+    if(pasNum > getMaxPassNum())
+        pasNum = getMaxPassNum();
+    setSpeed();
 }
 Paz::~Paz()
 {
@@ -196,13 +199,13 @@ void Paz::printInfo()
     cout << "Model: Paz" << endl;
     Bus::printInfo();
 }
-int Paz::getMaxPassNum()
+void Paz::setMaxPassNum()
 {
-    return maxPasNum;
+    maxPasNum = 25;
 }
-int Paz::getSpeed()
+void Paz::setSpeed()
 {
-    return speed;
+    speed = 30;
 }
 void Paz::move(QTableWidget* table)
 {
@@ -213,8 +216,10 @@ void Paz::move(QTableWidget* table)
 
 Vaz::Vaz(int num, int pasNum, int circ, int d, int hr, int mn):Bus(num, pasNum, circ, d, hr, mn)
 {
-    if(pasNum > maxPasNum)
-        pasNum = maxPasNum;
+    setMaxPassNum();
+    if(pasNum > getMaxPassNum())
+        pasNum = getMaxPassNum();
+    setSpeed();
 }
 Vaz::~Vaz()
 {
@@ -225,13 +230,13 @@ void Vaz::printInfo()
     cout << "Model: Vaz" << endl;
     Bus::printInfo();
 }
-int Vaz::getMaxPassNum()
+void Vaz::setMaxPassNum()
 {
-    return maxPasNum;
+    maxPasNum = 20;
 }
-int Vaz::getSpeed()
+void Vaz::setSpeed()
 {
-    return speed;
+    speed = 40;
 }
 void Vaz::move(QTableWidget* table)
 {
@@ -244,8 +249,10 @@ void Vaz::move(QTableWidget* table)
 
 Gaz::Gaz(int num, int pasNum, int circ, int d, int hr, int mn):Bus(num, pasNum, circ, d, hr, mn)
 {
-    if(pasNum > maxPasNum)
-        pasNum = maxPasNum;
+    setMaxPassNum();
+    if(pasNum > getMaxPassNum())
+        pasNum = getMaxPassNum();
+    setSpeed();
 }
 Gaz::~Gaz()
 {
@@ -256,13 +263,13 @@ void Gaz::printInfo()
     cout << "Model: Gaz" << endl;
     Bus::printInfo();
 }
-int Gaz::getMaxPassNum()
+void Gaz::setMaxPassNum()
 {
-    return maxPasNum;
+    maxPasNum = 30;
 }
-int Gaz::getSpeed()
+void Gaz::setSpeed()
 {
-    return speed;
+    speed = 60;
 }
 void Gaz::move(QTableWidget* table)
 {

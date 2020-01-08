@@ -35,13 +35,12 @@ public:
 
 class Bus : public Clock
 {
-private:
-    int maxPasNum = 0; // максимальное кол-во пассажиров
-    int speed = 1; // скорость автобуса
 protected:
     int number;
     int passengersNum;
     int circle;
+    int maxPasNum; // максимальное кол-во пассажиров
+    int speed; // скорость автобуса
 public:
     Bus(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     virtual ~Bus();
@@ -50,52 +49,45 @@ public:
     void setCircle(int n);
     int getNum();
     int getPassNum();
-    virtual int getSpeed();
+    virtual void setSpeed() = 0;
+    int getSpeed();
     int getCircle();
-    virtual int getMaxPassNum();
+    virtual void setMaxPassNum() = 0;
+    int getMaxPassNum();
     void printInfo();
     void move(QTableWidget* table); // функция движения по маршруту, пока не закончится кол-во заданных кругов
 };
 
 class Paz : public Bus
 {
-private:
-    int speed = 40;
-    int maxPasNum = 25;
 public:
     Paz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Paz() override;
     void printInfo();
-    int getMaxPassNum() override;
-    int getSpeed() override;
+    void setMaxPassNum() override;
+    void setSpeed() override;
     void move(QTableWidget* table);
 };
 
 class Vaz : public Bus
 {
-private:
-    int speed = 50;
-    int maxPasNum = 20;
 public:
     Vaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Vaz() override;
     void printInfo();
-    int getMaxPassNum() override;
-    int getSpeed() override;
+    void setMaxPassNum() override;
+    void setSpeed() override;
     void move(QTableWidget* table);
 };
 
 class Gaz : public Bus
 {
-private:
-    int speed = 60;
-    int maxPasNum = 35;
 public:
     Gaz(int num = 0,int pasNum = 0, int circ = 1, int d = 0, int hr = 9, int mn = 0);
     ~Gaz() override;
     void printInfo();
-    int getMaxPassNum() override;
-    int getSpeed() override;
+    void setMaxPassNum() override;
+    void setSpeed() override;
     void move(QTableWidget* table);
 };
 
