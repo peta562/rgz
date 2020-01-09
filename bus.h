@@ -64,7 +64,6 @@ public:
     ~Paz() override;
     void setMaxPassNum() override;
     void setSpeed() override;
-    void move(QTableWidget* table);
 };
 
 class Vaz : public Bus
@@ -74,7 +73,6 @@ public:
     ~Vaz() override;
     void setMaxPassNum() override;
     void setSpeed() override;
-    void move(QTableWidget* table);
 };
 
 class Gaz : public Bus
@@ -84,7 +82,6 @@ public:
     ~Gaz() override;
     void setMaxPassNum() override;
     void setSpeed() override;
-    void move(QTableWidget* table);
 };
 
 
